@@ -21,14 +21,16 @@ steps:
     displayName: "Restoring Nuget Packages"
     inputs:
       command: "restore"
-      projects: "$(sourcePath)/$(webFolder)/*.csproj"
+      projects: "$(sourcePath)/*.sln"
+    # projects: "$(sourcePath)/$(webFolder)/*.csproj"
 
   - task: DotNetCoreCLI@2
     displayName: "Building project ApiBanco"
     inputs:
       command: "build"
       publishWebProjects: true
-      projects: "$(sourcePath)/$(webFolder)/*.csproj"
+      projects: "$(sourcePath)/*.sln"
+      #projects: "$(sourcePath)/$(webFolder)/*.csproj"
       arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore"
 
   - task: DotNetCoreCLI@2
@@ -36,7 +38,8 @@ steps:
     inputs:
       command: "publish"
       publishWebProjects: true
-      projects: "$(sourcePath)/$(webFolder)/*.csproj"
+      projects: "$(sourcePath)/*.sln"
+      #projects: "$(sourcePath)/$(webFolder)/*.csproj"
       arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore --no-build --output $(Build.ArtifactStagingDirectory)/$(webFolder)"
       zipAfterPublish: true
 

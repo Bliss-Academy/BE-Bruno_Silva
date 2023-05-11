@@ -31,17 +31,19 @@ steps:
       publishWebProjects: true
       projects: "$(sourcePath)/*.sln"
       #projects: "$(sourcePath)/$(webFolder)/*.csproj"
-      arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore"
+      arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore" --output $(Build.ArtifactStagingDirectory)/$(webFolder)"
+      #zipAfterPublish: true
 
-  - task: DotNetCoreCLI@2
-    displayName: "Publishing project $(webFolder)"
-    inputs:
-      command: "publish"
-      publishWebProjects: true
-      projects: "$(sourcePath)/*.sln"
-      #projects: "$(sourcePath)/$(webFolder)/*.csproj"
-      arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore --no-build --output $(Build.ArtifactStagingDirectory)/$(webFolder)"
-      zipAfterPublish: true
+
+  # - task: DotNetCoreCLI@2
+  #   displayName: "Publishing project $(webFolder)"
+  #   inputs:
+  #     command: "publish"
+  #     publishWebProjects: true
+  #     projects: "$(sourcePath)/*.sln"
+  #     #projects: "$(sourcePath)/$(webFolder)/*.csproj"
+  #     arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore --no-build --output $(Build.ArtifactStagingDirectory)/$(webFolder)"
+  #     zipAfterPublish: true
 
   - task: PublishPipelineArtifact@1
     inputs:

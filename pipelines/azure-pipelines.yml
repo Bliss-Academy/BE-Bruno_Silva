@@ -18,6 +18,12 @@ variables:
 
 steps:
   - task: DotNetCoreCLI@2
+    displayName: "Restoring Nuget Packages"
+    inputs:
+      command: "restore"
+      projects: "$(sourcePath)/$(webFolder)/*.csproj"
+
+  - task: DotNetCoreCLI@2
     displayName: "Building project ApiBanco"
     inputs:
       command: "build"

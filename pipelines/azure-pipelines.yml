@@ -9,24 +9,33 @@ pool:
   demands: agent.name -equals bliss-slave-windows2
 
 variables:
+  packageName: 'ApiBancoPackage'
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  webFolder: "ApiBanco"
+  sourcePath: "ApiBanco"
 
 steps:
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: "Building project ApiBanco"
+    inputs:
+      command: "build"
+      publishWebProjects: true
+      projects: "$(sourcePath)/$(webFolder)/*.csproj"
+      arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore"
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: "Publishing project $(webFolder)"
+    inputs:
+      command: "publish"
+      publishWebProjects: true
+      projects: "$(sourcePath)/$(webFolder)/*.csproj"
+      arguments: "--configuration $(BuildConfiguration) --version-suffix $(Build.BuildNumber) --no-restore --no-build --output $(Build.ArtifactStagingDirectory)/$(webFolder)"
+      zipAfterPublish: true
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)/a'
-    artifact: 'Academy_api1'
-    publishLocation: 'pipeline'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "$(build.artifactStagingDirectory)/$(webFolder)"
+      artifact: "$(packageName)"
+      publishLocation: "pipeline"

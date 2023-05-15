@@ -29,7 +29,7 @@ Guia para utilização da API
   "type": Valor inteiro unico, 0 para Income, 1 para expense,
   "attachment": "string" por default
        
-  - transaction/gettransactionbyuid/uid
+  - transaction/gettransactionbyuid/uid/transactiontype
      "uid" =  userid que deseja buscar as transações
      transactiontype
        0 - Income

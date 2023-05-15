@@ -1,6 +1,12 @@
 # BE-Bruno_Silva
 
 Guia para utilização da API 
+
+-Utilizador teste
+  - já existe um user para realizar testes (id : empty)
+  - pode-se criar users a partir do endpoint do dashboard (add user), mas não se consegue exclui-los CUIDADO!!
+
+
 - Funções disponiveis para uso:
 
 - Dashboard

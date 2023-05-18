@@ -28,6 +28,7 @@ Guia para utilização da API
        
 - Transaction
   - transaction/addtransaction
+  !! TRANSAÇÕES PODEM SER ADICIONADAS A UID NÃO ExISTENTE
   "userId": indentificador do user a ser atribuido a transação,
   "value": Valor da transação,
   "title": Titulo da transação,
